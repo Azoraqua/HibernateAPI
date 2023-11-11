@@ -3,7 +3,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
     id 'maven-publish'
-    id 'signing'
 }
 
 group = 'dev.azoraqua'
@@ -52,12 +51,6 @@ publishing {
             from components.java
         }
     }
-}
-
-signing {
-    useGpgCmd()
-
-    sign publishing.publications.maven
 }
 
 build.dependsOn('shadowJar');
