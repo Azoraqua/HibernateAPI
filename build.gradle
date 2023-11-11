@@ -1,0 +1,36 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'dev.azoraqua'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'org.hibernate.orm:hibernate-core:6.3.1.Final'
+    implementation 'javax.transaction:jta:1.1'
+    implementation 'org.hibernate.orm:hibernate-hikaricp:6.3.1.Final'
+    annotationProcessor 'org.hibernate.orm:hibernate-core:6.3.1.Final'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+
+    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+}
+
+shadowJar {
+    minimize()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+build.dependsOn('shadowJar');
+publish.dependsOn('build');
