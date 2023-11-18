@@ -26,9 +26,14 @@ public final class HibernateInstanceBuilder {
     public <T> HibernateInstanceBuilder withSetting(@NotNull HibernateSetting<T> setting, @Nullable T value) {
         validateSetting(setting, value);
 
-        properties.put(setting.getProperty(), value == null
-                ? String.valueOf(setting.getDefaultValue())
-                : String.valueOf(value));
+        if (value instanceof HibernateStandardSettings.Driver driver) {
+            return withCustomSetting(setting.getProperty(), driver.getDriverClass());
+        } else {
+            properties.put(setting.getProperty(), value == null
+                    ? String.valueOf(setting.getDefaultValue())
+                    : String.valueOf(value));
+        }
+
         return this;
     }
 

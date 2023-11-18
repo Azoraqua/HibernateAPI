@@ -1,7 +1,6 @@
 package dev.azoraqua.hibernate;
 
 import lombok.*;
-import org.checkerframework.checker.units.qual.N;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,17 +24,25 @@ public final class HibernateStandardSettings<T> implements HibernateSetting<T> {
    @NotNull
    public static final HibernateSetting<String> PASSWORD = HibernateSetting.ofString("hibernate.connection.password", null, null);
 
+   void t() {
+
+   }
+
+   @RequiredArgsConstructor
+   @Getter
    public enum Driver {
       /**
        * @implNote Use {@link Driver#MARIADB} when the url starts with <pre>jdbc:mariadb://</pre> otherwise it will result in an error.
        */
-      MYSQL,
+      MYSQL("com.mysql.jdbc.Driver"),
 
       /**
        * @implNote Use {@link Driver#MYSQL} when the url starts with <pre>jdbc:mysql://</pre> otherwise it will result in an error.
        */
-      MARIADB,
+      MARIADB("org.mariadb.Driver"),
 
-      POSTGRESQL
+      POSTGRESQL("org.postgres.Driver");
+
+      private final String driverClass;
    }
 }
