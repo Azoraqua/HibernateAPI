@@ -1,4 +1,4 @@
-package dev.azoraqua;
+package dev.azoraqua.hibernate;
 
 public record HibernateStandardSettings<T>(String property, T defaultValue, T[] options) implements HibernateSetting<T> {
    public static final HibernateSetting<String> URL = HibernateSetting.ofString("hibernate.connection.url", null, null);

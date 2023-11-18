@@ -1,4 +1,4 @@
-package dev.azoraqua;
+package dev.azoraqua.hibernate;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

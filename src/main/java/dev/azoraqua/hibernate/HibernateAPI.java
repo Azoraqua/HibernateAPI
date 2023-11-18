@@ -1,4 +1,4 @@
-package dev.azoraqua;
+package dev.azoraqua.hibernate;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public final class HibernateAPI {
 
-    public static HibernateInstance init() {
-        return new HibernateInstance();
+    public static HibernateInstanceBuilder init() {
+        return new HibernateInstanceBuilder();
     }
 }
