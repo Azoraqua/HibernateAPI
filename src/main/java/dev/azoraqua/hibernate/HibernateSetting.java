@@ -5,94 +5,113 @@ import org.jetbrains.annotations.Nullable;
 
 public interface HibernateSetting<T> {
     @NotNull
-    String property();
+    String getProperty();
 
     @Nullable
-    T defaultValue();
+    T getDefaultValue();
 
     /**
      *
      * @return When any values are allowed, return null.
      */
     @Nullable
-    T[] options();
+    T[] getOptions();
 
     // Helper methods
 
-    static <T> HibernateSetting<T> custom(String property) {
+    static <T> HibernateSetting<T> custom(@NotNull String property) {
         return new HibernateSetting<T>() {
             @Override
-            public @NotNull String property() {
+            public @NotNull String getProperty() {
                 return property;
             }
 
             @Override
-            public @Nullable T defaultValue() {
+            public @Nullable T getDefaultValue() {
                 return null;
             }
 
             @Override
-            public @Nullable T[] options() {
+            public @Nullable T[] getOptions() {
                 return null;
             }
         };
     }
 
-    static HibernateSetting<String> ofString(String property, String defaultValue, String[] options) {
-        return new HibernateSetting<>() {
+    static <T extends Enum<?>> HibernateSetting<T> ofEnum(@NotNull String property, @NotNull Class<T> clazz) {
+        return new HibernateSetting<T>() {
             @Override
-            public @NotNull String property() {
+            public @NotNull String getProperty() {
                 return property;
             }
 
             @Override
-            public @NotNull String defaultValue() {
+            public @Nullable T getDefaultValue() {
+                return null;
+            }
+
+            @Override
+            public @Nullable T[] getOptions() {
+                return clazz.getEnumConstants();
+            }
+        };
+    }
+
+    static HibernateSetting<String> ofString(@NotNull String property, @Nullable String defaultValue, @Nullable String[] options) {
+        return new HibernateSetting<>() {
+            @Override
+            public @NotNull String getProperty() {
+                return property;
+            }
+
+            @Override
+            public @Nullable String getDefaultValue() {
                 return defaultValue;
             }
 
 
             @Nullable
             @Override
-            public String[] options() {
+            public String[] getOptions() {
                 return options;
             }
         };
     }
 
-    static HibernateSetting<Integer> ofInteger(String property, int defaultValue, Integer[] options) {
+    static HibernateSetting<Integer> ofInteger(@NotNull String property, int defaultValue, @Nullable Integer[] options) {
         return new HibernateSetting<>() {
             @Override
-            public @NotNull String property() {
+            public @NotNull String getProperty() {
                 return property;
             }
 
             @Override
-            public @NotNull Integer defaultValue() {
+            public @NotNull Integer getDefaultValue() {
                 return defaultValue;
             }
 
             @Nullable
             @Override
-            public Integer[] options() {
+            public Integer[] getOptions() {
                 return options;
             }
         };
     }
 
-    static HibernateSetting<Boolean> ofBoolean(String property, boolean defaultValue) {
+    static HibernateSetting<Boolean> ofBoolean(@NotNull String property, boolean defaultValue) {
         return new HibernateSetting<>() {
             @Override
-            public @NotNull String property() {
+            public @NotNull String getProperty() {
                 return property;
             }
 
             @Override
-            public @NotNull Boolean defaultValue() {
+            public @NotNull Boolean getDefaultValue() {
                 return defaultValue;
             }
 
             @Override
-            public @NotNull Boolean[] options() {
+            public @NotNull Boolean[] getOptions() {
                 return null;
             }
         };

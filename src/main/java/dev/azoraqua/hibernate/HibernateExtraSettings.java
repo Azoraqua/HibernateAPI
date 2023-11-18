@@ -1,9 +1,21 @@
 package dev.azoraqua.hibernate;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public record HibernateExtraSettings<T>(String property, T defaultValue, T[] options) implements HibernateSetting<T> {
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@Data
+public final class HibernateExtraSettings<T> implements HibernateSetting<T> {
+    private final @NotNull String property;
+    private final @Nullable T defaultValue;
+    private final @Nullable T[] options;
 
+    @NotNull
     public static final HibernateSetting<Integer> POOL_SIZE = HibernateSetting.ofInteger(
             "hibernate.connection.pool_size",
             10,

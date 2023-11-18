@@ -10,21 +10,24 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class HibernateInstanceBuilder {
+    @NotNull
     private final Map<String, Object> properties = new HashMap<>();
+    @NotNull
     private final Set<Class<? extends Persistable<?>>> entities = new HashSet<>();
 
     @Contract("_, _ -> this")
     @NotNull
-    public <T> HibernateInstanceBuilder withSetting(HibernateSetting<T> setting, T value) {
+    public <T> HibernateInstanceBuilder withSetting(@NotNull HibernateSetting<T> setting, @Nullable T value) {
         validateSetting(setting, value);
 
-        properties.put(setting.property(), value == null
-                ? String.valueOf(setting.defaultValue())
+        properties.put(setting.getProperty(), value == null
+                ? String.valueOf(setting.getDefaultValue())
                 : String.valueOf(value));
         return this;
     }
@@ -36,7 +39,9 @@ public final class HibernateInstanceBuilder {
         return this;
     }
 
-    public HibernateInstanceBuilder withEntity(Class<? extends Persistable<?>> entity) {
+    @Contract("_ -> this")
+    @NotNull
+    public HibernateInstanceBuilder withEntity(@NotNull Class<? extends Persistable<?>> entity) {
         entities.add(entity);
         return this;
     }
@@ -57,13 +62,13 @@ public final class HibernateInstanceBuilder {
         return new HibernateInstance(entities, sessionFactory);
     }
 
-    private void validateSetting(HibernateSetting<?> setting, Object value) {
+    private void validateSetting(@Nullable HibernateSetting<?> setting, @Nullable Object value) {
         if (setting == null) {
             throw new IllegalArgumentException("Setting cannot be null");
         }
 
-        final Object[] options = setting.options();
-        final Object defaultValue = setting.defaultValue();
+        final Object[] options = setting.getOptions();
+        final Object defaultValue = setting.getDefaultValue();
 
         if (value == null && defaultValue == null) {
             throw new IllegalArgumentException("Setting value cannot be null when there is no default provided");
