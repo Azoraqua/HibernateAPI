@@ -13,7 +13,7 @@ public final class HibernateStandardSettings<T> implements HibernateSetting<T> {
    private final @Nullable T[] options;
 
    @NotNull
-   public static final HibernateSetting<Driver> DRIVER = HibernateSetting.ofEnum("hibernate.connection.driver", Driver.class);
+   public static final HibernateSetting<Driver> DRIVER = HibernateSetting.ofEnum("hibernate.connection.driver_class", Driver.class);
 
    @NotNull
    public static final HibernateSetting<String> URL = HibernateSetting.ofString("hibernate.connection.url", null, null);
@@ -39,7 +39,7 @@ public final class HibernateStandardSettings<T> implements HibernateSetting<T> {
       /**
        * @implNote Use {@link Driver#MYSQL} when the url starts with <pre>jdbc:mysql://</pre> otherwise it will result in an error.
        */
-      MARIADB("org.mariadb.Driver"),
+      MARIADB("org.mariadb.jdbc.Driver"),
 
       POSTGRESQL("org.postgres.Driver");
 
