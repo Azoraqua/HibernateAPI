@@ -13,7 +13,7 @@ public final class HibernateStandardSettings<T> implements HibernateSetting<T> {
    private final @Nullable T[] options;
 
    @NotNull
-   public static final HibernateSetting<Driver> DRIVER = HibernateSetting.ofEnum("hibernate.connection.driver_class", Driver.class);
+   public static final HibernateSetting<Driver> DRIVER = HibernateSetting.ofEnum("hibernate.connection.driver_class", Driver.class, Driver.MARIADB);
 
    @NotNull
    public static final HibernateSetting<String> URL = HibernateSetting.ofString("hibernate.connection.url", null, null);
