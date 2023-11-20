@@ -1,9 +1,6 @@
 package dev.azoraqua.hibernate;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +44,17 @@ public final class HibernateExtraSettings<T> implements HibernateSetting<T> {
             HBM2DllAutoMode.UPDATE
     );
 
+    @RequiredArgsConstructor
+    @Getter
     public static enum HBM2DllAutoMode {
-        CREATE, UPDATE, CREATE_DROP, DROP, NONE
+        CREATE("create"),
+        CREATE_DROP("create-drop"),
+        CREATE_ONLY("create-only"),
+        DROP("drop"),
+        UPDATE("update"),
+        NONE("none"),
+        VALIDATE("validate");
+
+        private final String value;
     }
 }

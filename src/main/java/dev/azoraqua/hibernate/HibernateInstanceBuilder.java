@@ -28,6 +28,8 @@ public final class HibernateInstanceBuilder {
 
         if (value instanceof HibernateStandardSettings.Driver driver) {
             return withCustomSetting(setting.getProperty(), driver.getDriverClass());
+        } else if (value instanceof HibernateExtraSettings.HBM2DllAutoMode mode) {
+            return withCustomSetting(setting.getProperty(), mode.getValue());
         } else {
             properties.put(setting.getProperty(), value == null
                     ? String.valueOf(setting.getDefaultValue())
