@@ -38,7 +38,7 @@ public interface HibernateSetting<T> {
         };
     }
 
-    static <T extends Enum<?>> HibernateSetting<T> ofEnum(@NotNull String property, @NotNull Class<T> clazz) {
+    static <T extends Enum<?>> HibernateSetting<T> ofEnum(@NotNull String property, @NotNull Class<T> clazz, @Nullable T defaultValue) {
         return new HibernateSetting<T>() {
             @Override
             public @NotNull String getProperty() {
@@ -47,7 +47,7 @@ public interface HibernateSetting<T> {
 
             @Override
             public @Nullable T getDefaultValue() {
-                return null;
+                return defaultValue;
             }
 
             @Override

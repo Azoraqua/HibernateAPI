@@ -41,9 +41,13 @@ public final class HibernateExtraSettings<T> implements HibernateSetting<T> {
     );
 
     @NotNull
-    public static final HibernateSetting<String> HBM2DLL_AUTO = HibernateSetting.ofString(
+    public static final HibernateSetting<HBM2DllAutoMode> HBM2DLL_AUTO = HibernateSetting.ofEnum(
             "hibernate.hbm2ddl.auto",
-            "update",
-            new String[] {"create", "update", "create-drop", "drop", "none" }
+            HBM2DllAutoMode.class,
+            HBM2DllAutoMode.UPDATE
     );
+
+    public static enum HBM2DllAutoMode {
+        CREATE, UPDATE, CREATE_DROP, DROP, NONE
+    }
 }
